@@ -1,0 +1,6 @@
+Inserir no JS
+
+textoDaResposta.replace(/\n/g, '<br>'); 
+
+na linha 
+novaBolhaBot.innerHTML = textoDaResposta.replace(/\n/g, '<br>');

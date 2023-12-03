@@ -9,13 +9,13 @@ load_dotenv()
 cliente = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 modelo = "gpt-4"
 
-politicas_ecomart = carrega('dados/políticas_ecomart.txt')
+políticas_ecomart = carrega('dados/políticas_ecomart.txt')
 dados_ecomart = carrega('dados/dados_ecomart.txt')
 produtos_ecomart = carrega('dados/produtos_ecomart.txt')
 
 def selecionar_documento(resposta_openai) -> str:
     if "políticas" in resposta_openai:
-        return dados_ecomart + "\n" + politicas_ecomart
+        return dados_ecomart + "\n" + políticas_ecomart
     elif "produtos" in resposta_openai:
         return dados_ecomart + "\n" + produtos_ecomart
     else:
@@ -26,7 +26,7 @@ def selecionar_contexto(mensagem_usuario):
     A empresa EcoMart possui três documentos principais que detalham diferentes aspectos do negócio:
 
     #Documento 1 "\n {dados_ecomart} "\n"
-    #Documento 2 "\n" {politicas_ecomart} "\n"
+    #Documento 2 "\n" {políticas_ecomart} "\n"
     #Documento 3 "\n" {produtos_ecomart} "\n"
 
     Avalie o prompt do usuário e retorne o documento mais indicado para ser usado no contexto da resposta. Retorne dados se for o Documento 1, políticas se for o Documento 2 e produtos se for o Documento 3. 
