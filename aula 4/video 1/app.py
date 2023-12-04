@@ -16,9 +16,10 @@ modelo = "gpt-4-1106-preview"
 app = Flask(__name__)
 app.secret_key = 'alura'
 
-assistente = criar_assistente()
+
 thread = criar_thread()
 file_ids = criar_lista_arquivo_ids() #adiciona aqui
+assistente = criar_assistente()
 
 
 def bot(prompt):
@@ -41,6 +42,7 @@ def bot(prompt):
                 """
             )
 
+            #mudar aqui
             cliente.beta.threads.messages.create(
                 thread_id=thread.id, 
                 role = "user",

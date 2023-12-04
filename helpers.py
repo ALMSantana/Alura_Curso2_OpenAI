@@ -1,3 +1,7 @@
+import base64
+import cv2
+import numpy as np
+
 def carrega(nome_do_arquivo):
     try:
         with open(nome_do_arquivo, "r") as arquivo:
@@ -12,3 +16,8 @@ def salva(nome_do_arquivo, conteudo):
             arquivo.write(conteudo)
     except IOError as e:
         print(f"Erro ao salvar arquivo: {e}")
+
+#novo
+def encodar_imagem(caminho_imagem):
+    with open(caminho_imagem, "rb") as arquivo_imagem:
+        return base64.b64encode(arquivo_imagem.read()).decode('utf-8')

@@ -1,0 +1,4 @@
+1. Revisar assistente, removendo persona lá de dentro
+2. Revisar arquivos, criando método de lista de arquivos no assistentes_ecomart.py
+3. Revisar app.py criando file id
+4. Revisar app.py na mensagem principal, inserindo também as tools (lista)

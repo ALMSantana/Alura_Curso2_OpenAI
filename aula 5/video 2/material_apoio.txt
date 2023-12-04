@@ -1,0 +1,2 @@
+1. Criar função de ler imagem no helpers.py
+2. Criar vision_ecomart.py com funcao para leitura analisar_imagem

@@ -19,7 +19,7 @@ source curso_2_openai/bin/activate
 ### Instalação das Bibliotecas
 
 ```bash
-pip install openai python-dotenv tiktoken flask
+pip install numpy openai python-dotenv tiktoken flask opencv-python
 ```
 
 ## 📚 Referências de Leitura

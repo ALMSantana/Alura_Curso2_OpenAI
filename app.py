@@ -9,6 +9,7 @@ from selecionar_persona import *
 from assistentes_ecomart import *
 from tools_ecomart import *
 import json
+from vision_ecomart import analisar_imagem
 
 load_dotenv()
 
@@ -20,7 +21,7 @@ app.secret_key = 'alura'
 
 
 thread = criar_thread()
-file_ids = criar_lista_arquivo_ids() #adiciona aqui
+file_ids = criar_lista_arquivo_ids() 
 assistente = criar_assistente(file_ids)
 
 STATUS_COMPLETED = "completed"
@@ -46,6 +47,13 @@ def bot(prompt):
                 """
             )
 
+            resposta_vision = ""
+            global imagem_enviada
+            if imagem_enviada != None:
+
+                 resposta_vision = analisar_imagem("dados/new_caneca.png")
+                 imagem_enviada = None
+
             cliente.beta.threads.messages.create(
                 thread_id=thread.id, 
                 role = "user",
@@ -57,6 +65,7 @@ def bot(prompt):
                 thread_id=thread.id,
                 assistant_id=assistente.id
             )
+
 
             while run.status != STATUS_COMPLETED:
                 run = cliente.beta.threads.runs.retrieve(
@@ -101,7 +110,8 @@ def home():
 @app.route('/upload_imagem', methods=['POST'])
 def upload_imagem():
     if 'imagem' in request.files:
-        imagem = request.files['imagem']
+        global imagem_enviada 
+        imagem_enviada = request.files['imagem']
         return 'Imagem recebida com sucesso!', 200
     return 'Nenhum arquivo foi enviado', 400
 

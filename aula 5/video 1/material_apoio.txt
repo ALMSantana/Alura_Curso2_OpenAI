@@ -1,0 +1,3 @@
+1. Alterar index.js acrescentando ações para permitir que o JS leia e adicione imagens na tela
+2. Alterar app.py criando nova rota pro flask (upload_imagem)
+3. Alterar bot no app.py para incluir rotina de STATUS_REQUIRES_ACTION (incluir constantes)

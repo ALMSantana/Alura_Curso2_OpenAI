@@ -1,0 +1,1 @@
+Inserir fluxo no ChatBot importar funcao e chamar no fluxos e iamgem nao tiver vazia

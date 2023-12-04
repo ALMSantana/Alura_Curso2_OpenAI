@@ -20,8 +20,9 @@ app.secret_key = 'alura'
 
 
 thread = criar_thread()
-file_ids = criar_lista_arquivo_ids() #adiciona aqui
+file_ids = criar_lista_arquivo_ids() 
 assistente = criar_assistente(file_ids)
+imagem_enviada = None
 
 STATUS_COMPLETED = "completed"
 STATUS_REQUIRES_ACTION = "requires_action"
@@ -33,7 +34,6 @@ def bot(prompt):
         try:
             personalidade = personas[selecionar_persona(prompt)]
 
-            # adiciona aqui
             cliente.beta.threads.messages.create(
                 thread_id=thread.id, 
                 role = "user",
@@ -63,6 +63,7 @@ def bot(prompt):
                     thread_id=thread.id,
                     run_id=run.id    
                 )
+                #Novo aqui
                 if run.status == STATUS_REQUIRES_ACTION:
                     tools_acionadas = run.required_action.submit_tool_outputs.tool_calls
                     respostas_tools_acionadas = []
@@ -102,8 +103,8 @@ def home():
 @app.route('/upload_imagem', methods=['POST'])
 def upload_imagem():
     if 'imagem' in request.files:
-        imagem = request.files['imagem']
-        print(imagem)
+        imagem_enviada = request.files['imagem']
+        print(imagem_enviada)
         return 'Imagem recebida com sucesso!', 200
     return 'Nenhum arquivo foi enviado', 400
 
