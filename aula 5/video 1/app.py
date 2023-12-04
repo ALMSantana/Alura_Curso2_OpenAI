@@ -98,10 +98,12 @@ def bot(prompt):
 def home():
     return render_template("index.html")
 
+#novo daqui pra baixo
 @app.route('/upload_imagem', methods=['POST'])
 def upload_imagem():
     if 'imagem' in request.files:
         imagem = request.files['imagem']
+        print(imagem)
         return 'Imagem recebida com sucesso!', 200
     return 'Nenhum arquivo foi enviado', 400
 
