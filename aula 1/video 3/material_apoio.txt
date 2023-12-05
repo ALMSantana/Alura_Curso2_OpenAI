@@ -4,3 +4,6 @@ textoDaResposta.replace(/\n/g, '<br>');
 
 na linha 
 novaBolhaBot.innerHTML = textoDaResposta.replace(/\n/g, '<br>');
+
+1. criar helper
+2. carregar documentos para iserir contexto

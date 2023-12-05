@@ -3,6 +3,7 @@ let input = document.querySelector('#input');
 let botaoEnviar = document.querySelector('#botao-enviar');
 let imagemSelecionada;
 let botaoAnexo = document.querySelector('#mais_arquivo');
+let miniaturaImagem;
 
 //novo
 async function pegarImagem(){
@@ -11,7 +12,21 @@ async function pegarImagem(){
     fileInput.accept = 'image/*';
 
     fileInput.onchange = async e => {
-        let imagemSelecionada = e.target.files[0];
+        if (miniaturaImagem) {
+            miniaturaImagem.remove(); 
+        }
+
+        imagemSelecionada = e.target.files[0];
+
+        miniaturaImagem = document.createElement('img');
+        miniaturaImagem.src = URL.createObjectURL(imagemSelecionada);
+        miniaturaImagem.style.maxWidth = '3rem'; 
+        miniaturaImagem.style.maxHeight = '3rem';
+        miniaturaImagem.style.margin = '0.5rem'; 
+
+        
+        document.querySelector('.entrada__container').insertBefore(miniaturaImagem, input);
+
 
         let formData = new FormData();
         formData.append('imagem', imagemSelecionada);
@@ -33,6 +48,10 @@ async function enviarMensagem() {
     if(input.value == "" || input.value == null) return;
     let mensagem = input.value;
     input.value = "";
+
+    if (miniaturaImagem) {
+        miniaturaImagem.remove(); 
+    }
 
     let novaBolha = criaBolhaUsuario();
     novaBolha.innerHTML = mensagem;

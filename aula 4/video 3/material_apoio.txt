@@ -1,5 +1,6 @@
 1. Adicionar função e minhas funcioes no tools_ecomart.py
 2. Ajustar app.py
 2.1 Revisar se o modelo está correto
-2.2 Passar ids para o assistente
+2.2 Passar tools para thread (ids)
 2.3 Criar desvio condicional do required no bot (do app.py)
+2.4 Adaptar para usar o mesmo Assistente e a mesma thread com o .env

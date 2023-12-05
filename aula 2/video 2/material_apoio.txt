@@ -1,0 +1,2 @@
+1. criar selecionar documentos
+2. integrar com o chatbot

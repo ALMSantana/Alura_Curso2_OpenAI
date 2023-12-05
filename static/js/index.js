@@ -45,15 +45,13 @@ async function pegarImagem(){
 }
 
 async function enviarMensagem() {
-    //Novo
-    if (miniaturaImagem) {
-        miniaturaImagem.remove(); 
-        miniaturaImagem = null; 
-    }
-
     if(input.value == "" || input.value == null) return;
     let mensagem = input.value;
     input.value = "";
+
+    if (miniaturaImagem) {
+        miniaturaImagem.remove(); 
+    }
 
     let novaBolha = criaBolhaUsuario();
     novaBolha.innerHTML = mensagem;

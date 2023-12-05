@@ -22,6 +22,8 @@ app.secret_key = 'alura'
 thread = criar_thread()
 file_ids = criar_lista_arquivo_ids() #adiciona aqui
 assistente = criar_assistente(file_ids) #revisado
+assistente_id = os.getenv("ASSISTANT_ID")
+thread_id = os.getenv("THREAD_ID")
 
 STATUS_COMPLETED = "completed" #adicionado
 STATUS_REQUIRES_ACTION = "requires_action" #adicionado
@@ -34,7 +36,7 @@ def bot(prompt):
             personalidade = personas[selecionar_persona(prompt)]
 
             cliente.beta.threads.messages.create(
-                thread_id=thread.id, 
+                thread_id=thread_id, 
                 role = "user",
                 content =  f"""
                 Assuma, de agora em diante, a personalidade abaixo. 
@@ -46,20 +48,20 @@ def bot(prompt):
             )
 
             cliente.beta.threads.messages.create(
-                thread_id=thread.id, 
+                thread_id=thread_id, 
                 role = "user",
                 content =  prompt,
                 file_ids=file_ids
             )
 
             run = cliente.beta.threads.runs.create(
-                thread_id=thread.id,
-                assistant_id=assistente.id
+                thread_id=thread_id,
+                assistant_id=assistente_id
             )
 
             while run.status != STATUS_COMPLETED:
                 run = cliente.beta.threads.runs.retrieve(
-                    thread_id=thread.id,
+                    thread_id=thread_id,
                     run_id=run.id    
                 )
                 #adicionado
@@ -79,12 +81,12 @@ def bot(prompt):
                         })
 
                     run = cliente.beta.threads.runs.submit_tool_outputs(
-                        thread_id = thread.id,
+                        thread_id = thread_id,
                         run_id = run.id,
                         tool_outputs=respostas_tools_acionadas
                     )
 
-            historico = list(cliente.beta.threads.messages.list(thread_id=thread.id).data)
+            historico = list(cliente.beta.threads.messages.list(thread_id=thread_id).data)
             resposta = historico[0]
             return resposta
         except Exception as erro:

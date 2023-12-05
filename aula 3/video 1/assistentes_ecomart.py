@@ -26,3 +26,5 @@ assistente = cliente.beta.assistants.create(
             """,
     model = modelo
 )
+
+print(assistente.id)

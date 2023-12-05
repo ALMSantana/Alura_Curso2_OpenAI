@@ -27,6 +27,7 @@ assistente = cliente.beta.assistants.create(
     model = modelo
 )
 
+# aqui podemos sugerir manter so um assistente
 print(assistente.id)
 
 # Criar uma thread com uma mensagem inicial

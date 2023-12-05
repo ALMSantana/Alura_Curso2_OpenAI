@@ -13,10 +13,12 @@ modelo = "gpt-4-vision-preview"
 def analisar_imagem(caminho_imagem):
     prompt = """"
         Assuma que você é um assistente de chatbot e que provaelmente o usuário está enviado a foto de
-        um produto. Faça uma análise dele, e se for um produto com defeito, emita um parecer.
+        um produto. Faça uma análise dele, e se for um produto com defeito, emita um parecer. Assuma que você sabe e
+        processou uma imagem com o Vision e a resposta será informada no formato de saída.
 
         # SAÍDA
-
+        Minha análise para imagem consiste em:
+        
         Parecer com indicações do defeito ou descrição do produto (se não houver defeito)
     """
 

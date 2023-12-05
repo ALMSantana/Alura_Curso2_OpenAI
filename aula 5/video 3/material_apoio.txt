@@ -1,1 +1,2 @@
-Inserir fluxo no ChatBot importar funcao e chamar no fluxos e iamgem nao tiver vazia
+1. criar variavel global de imagem
+2. criar diretorio para salvar imagem 
