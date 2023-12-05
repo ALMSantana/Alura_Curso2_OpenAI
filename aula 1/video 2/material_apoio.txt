@@ -1,0 +1,2 @@
+1. criar método bot
+2. adicionar linhas dentro da rota do chat

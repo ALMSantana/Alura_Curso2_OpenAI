@@ -1,1 +1,1 @@
-https://platform.openai.com/docs/assistants/how-it-works/objects
+1. mostrar como criar um assistente em python

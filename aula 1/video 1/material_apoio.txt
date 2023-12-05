@@ -1,0 +1,2 @@
+0. Explicar o chatbot
+1. Criar rota do chat

@@ -1,0 +1,1 @@
+1. criar selecionar persona e integrar com o chatbot

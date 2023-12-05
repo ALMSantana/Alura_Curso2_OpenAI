@@ -1,4 +1,5 @@
-1. Revisar assistente, removendo persona lá de dentro
+1. Revisar assistente, removendo persona lá de dentro e mantendo um assitente so
+1.1 Buscar ID de um assistente existente e explicar pq não é bom ficar criando vários
 2. Revisar arquivos, criando método de lista de arquivos no assistentes_ecomart.py
 3. Revisar app.py criando file id
 4. Revisar app.py na mensagem principal, inserindo também as tools (lista)

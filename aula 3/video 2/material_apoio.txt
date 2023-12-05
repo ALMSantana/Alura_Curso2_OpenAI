@@ -1,0 +1,2 @@
+1. Mostrar fluxo completo de uso dos assistentes_ecomart
+2. Implementar sequëncia de m~etodos necessãria.

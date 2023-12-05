@@ -9,6 +9,8 @@ from selecionar_persona import *
 from assistentes_ecomart import *
 from tools_ecomart import *
 import json
+import uuid #importado
+from vision_ecomart import analisar_imagem
 
 load_dotenv()
 
@@ -25,15 +27,17 @@ thread_id = os.getenv("THREAD_ID")
 STATUS_COMPLETED = "completed"
 STATUS_REQUIRES_ACTION = "requires_action"
 
-imagem_global = None # criada aqui
+caminho_imagem_enviada = None # criar aqui
+UPLOAD_FOLDER = 'dados' #criar aqui
 
 def bot(prompt):
+    global caminho_imagem_enviada
     maxima_repeticao = 1
     repeticao = 0
     while True:
         try:
             personalidade = personas[selecionar_persona(prompt)]
-
+            print(caminho_imagem_enviada)
             cliente.beta.threads.messages.create(
                 thread_id=thread_id, 
                 role = "user",
@@ -46,10 +50,17 @@ def bot(prompt):
                 """
             )
 
+            #adicionar aqui
+            resposta_vision = ""
+            if caminho_imagem_enviada != "":
+                resposta_vision = analisar_imagem(caminho_imagem_enviada)
+                os.remove(caminho_imagem_enviada)
+                caminho_imagem_enviada = ""
+
             cliente.beta.threads.messages.create(
                 thread_id=thread_id, 
                 role = "user",
-                content =  prompt
+                content =  resposta_vision+prompt
             )
 
             run = cliente.beta.threads.runs.create(
@@ -100,11 +111,15 @@ def home():
 
 @app.route('/upload_imagem', methods=['POST'])
 def upload_imagem():
-    global imagem_global
+    global caminho_imagem_enviada
     if 'imagem' in request.files:
         imagem_enviada = request.files['imagem']
-        imagem_global = imagem_enviada
-        print("Resultado: ", imagem_enviada)
+        
+        nome_arquivo = str(uuid.uuid4()) + os.path.splitext(imagem_enviada.filename)[1]
+        caminho_arquivo = os.path.join(UPLOAD_FOLDER, nome_arquivo)
+        imagem_enviada.save(caminho_arquivo)
+        caminho_imagem_enviada = caminho_arquivo
+
         return 'Imagem recebida com sucesso!', 200
     return 'Nenhum arquivo foi enviado', 400
 
