@@ -6,7 +6,6 @@ from time import sleep
 from helpers import *
 from selecionar_documento import *
 from selecionar_persona import *
-from assistentes_ecomart import *
 
 load_dotenv()
 

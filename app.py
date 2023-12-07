@@ -20,9 +20,15 @@ modelo = "gpt-4-1106-preview"
 app = Flask(__name__)
 app.secret_key = 'alura'
 
-file_ids = criar_lista_arquivo_ids()
-assistente_id = os.getenv("ASSISTANT_ID")
-thread_id = os.getenv("THREAD_ID")
+assistente = pegar_json()
+
+thread_id = assistente["thread_id"]
+assistente_id = assistente["assistant_id"]
+file_ids = assistente["file_ids"]
+
+print(thread_id)
+print(assistente_id)
+print(file_ids)
 
 STATUS_COMPLETED = "completed"
 STATUS_REQUIRES_ACTION = "requires_action"
@@ -37,7 +43,7 @@ def bot(prompt):
     while True:
         try:
             personalidade = personas[selecionar_persona(prompt)]
-            print(caminho_imagem_enviada)
+            print("Imagem: ", caminho_imagem_enviada)
             cliente.beta.threads.messages.create(
                 thread_id=thread_id, 
                 role = "user",
@@ -52,7 +58,7 @@ def bot(prompt):
 
             #adicionar aqui
             resposta_vision = ""
-            if caminho_imagem_enviada != "":
+            if caminho_imagem_enviada != None:
                 resposta_vision = analisar_imagem(caminho_imagem_enviada)
                 os.remove(caminho_imagem_enviada)
                 caminho_imagem_enviada = ""
@@ -81,7 +87,6 @@ def bot(prompt):
                         nome_funcao = uma_tool.function.name
                         funcao_escolhida = minhas_funcoes[nome_funcao]
                         argumentos = json.loads(uma_tool.function.arguments)
-                        print(argumentos)
                         resposta_funcao = funcao_escolhida(argumentos)
 
                         respostas_tools_acionadas.append({

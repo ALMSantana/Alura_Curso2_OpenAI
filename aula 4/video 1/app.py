@@ -17,9 +17,10 @@ app = Flask(__name__)
 app.secret_key = 'alura'
 
 
-thread = criar_thread()
-file_ids = criar_lista_arquivo_ids() #adiciona aqui
-assistente = criar_assistente()
+assistente = pegar_json()
+thread_id = assistente["thread_id"]
+assistente_id = assistente["assistant_id"]
+file_ids = assistente["file_ids"]
 
 
 def bot(prompt):
@@ -31,7 +32,7 @@ def bot(prompt):
 
             # adiciona aqui
             cliente.beta.threads.messages.create(
-                thread_id=thread.id, 
+                thread_id=thread_id, 
                 role = "user",
                 content =  f"""
                 Assuma, de agora em diante, a personalidade abaixo. 
@@ -44,24 +45,24 @@ def bot(prompt):
 
             #mudar aqui
             cliente.beta.threads.messages.create(
-                thread_id=thread.id, 
+                thread_id=thread_id, 
                 role = "user",
                 content =  prompt,
                 file_ids=file_ids
             )
 
             run = cliente.beta.threads.runs.create(
-                thread_id=thread.id,
-                assistant_id=assistente.id
+                thread_id=thread_id,
+                assistant_id=assistente_id
             )
 
             while run.status !="completed":
                 run = cliente.beta.threads.runs.retrieve(
-                    thread_id=thread.id,
+                    thread_id=thread_id,
                     run_id=run.id
             )
 
-            historico = list(cliente.beta.threads.messages.list(thread_id=thread.id).data)
+            historico = list(cliente.beta.threads.messages.list(thread_id=thread_id).data)
             resposta = historico[0]
             return resposta
         except Exception as erro:

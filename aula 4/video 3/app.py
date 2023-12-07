@@ -19,11 +19,10 @@ app = Flask(__name__)
 app.secret_key = 'alura'
 
 
-thread = criar_thread()
-file_ids = criar_lista_arquivo_ids() #adiciona aqui
-assistente = criar_assistente(file_ids) #revisado
-assistente_id = os.getenv("ASSISTANT_ID")
-thread_id = os.getenv("THREAD_ID")
+assistente = pegar_json()
+thread_id = assistente["thread_id"]
+assistente_id = assistente["assistant_id"]
+file_ids = assistente["file_ids"]
 
 STATUS_COMPLETED = "completed" #adicionado
 STATUS_REQUIRES_ACTION = "requires_action" #adicionado
